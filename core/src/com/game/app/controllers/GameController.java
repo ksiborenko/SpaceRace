@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.game.app.App;
 import com.game.app.objects.Ship;
 import com.game.app.objects.Timer;
+import com.game.app.utils.Hud;
 import com.game.app.utils.ObjectRenderer;
 import com.game.app.utils.ShipMover;
 
@@ -19,6 +20,7 @@ public class GameController implements Screen {
     private final ObstacleController obstacleController;
     private final ObjectRenderer objectRenderer;
     private final Timer timer;
+    private final Hud hud;
 
     public GameController(App app, float width, float height) {
         this.app = app;
@@ -29,6 +31,7 @@ public class GameController implements Screen {
         this.obstacleController = new ObstacleController(width, height, 4, 1);
         this.objectRenderer = new ObjectRenderer();
         this.timer = new Timer(width / 2, 0, 2, 450);
+        this.hud = new Hud();
     }
 
     @Override
@@ -44,6 +47,7 @@ public class GameController implements Screen {
         this.shipMover.move();
         this.obstacleController.update(2);
         this.timer.move(-0.1f, 0);
+        this.hud.getStage().draw();
     }
 
 
