@@ -6,22 +6,21 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
+import com.game.app.objects.Ship;
 
 
 public class Hud {
 
     private Stage stage;
-    private int playerOne;
-    private int playerTwo;
     private final Label pointsOne;
     private final Label pointsTwo;
+    private ScoreCounter scoreCounter;
 
-    public Hud() {
-        this.playerOne = 0;
-        this.playerTwo = 0;
+    public Hud(Ship playerOne, Ship playerTwo, int height) {
         this.stage = new Stage();
-        this.pointsOne = new Label(String.format("%01d", this.playerOne), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
-        this.pointsTwo = new Label(String.format("%01d", this.playerTwo), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        this.scoreCounter = new ScoreCounter(playerOne, playerTwo, height);
+        this.pointsOne = new Label(String.format("%01d", this.scoreCounter.getPlayerOnePoints()), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
+        this.pointsTwo = new Label(String.format("%01d", this.scoreCounter.getPlayerTwoPoints()), new Label.LabelStyle(new BitmapFont(), Color.WHITE));
         Table table = new Table();
         table.top();
         table.setFillParent(true);
@@ -31,6 +30,9 @@ public class Hud {
     }
 
     public void updatePoints() {
+        this.pointsOne.setText(this.scoreCounter.getPlayerOnePoints());
+        this.pointsTwo.setText(this.scoreCounter.getPlayerTwoPoints());
+        this.scoreCounter.count();
     }
 
     public Stage getStage() {

@@ -31,7 +31,7 @@ public class GameController implements Screen {
         this.obstacleController = new ObstacleController(width, height, 4, 1);
         this.objectRenderer = new ObjectRenderer();
         this.timer = new Timer(width / 2, 0, 2, 450);
-        this.hud = new Hud();
+        this.hud = new Hud(this.playerOne, this.playerTwo, (int) height);
     }
 
     @Override
@@ -48,6 +48,7 @@ public class GameController implements Screen {
         this.obstacleController.update(2);
         this.timer.move(-0.1f, 0);
         this.hud.getStage().draw();
+        this.hud.updatePoints();
     }
 
 
