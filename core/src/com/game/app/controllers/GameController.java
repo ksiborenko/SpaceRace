@@ -6,15 +6,11 @@ import com.badlogic.gdx.graphics.GL20;
 import com.game.app.App;
 import com.game.app.objects.Ship;
 import com.game.app.objects.Timer;
-import com.game.app.utils.CollisionDetector;
-import com.game.app.utils.Hud;
-import com.game.app.utils.ObjectRenderer;
-import com.game.app.utils.ShipMover;
+import com.game.app.utils.*;
 
 public class GameController implements Screen {
 
     private final App app;
-    private float width;
     private final Ship playerOne;
     private final Ship playerTwo;
     private final ShipMover shipMover;
@@ -22,11 +18,13 @@ public class GameController implements Screen {
     private final ObjectRenderer objectRenderer;
     private final Timer timer;
     private final Hud hud;
-    private final CollisionDetector detector;
+    private final CollisionDetector detectorPlayerOne;
+    private final CollisionDetector detectorPlayerTwo;
+    private final ShipController controllerPlayerOne;
+    private final ShipController controllerPlayerTwo;
 
     public GameController(App app, float width, float height) {
         this.app = app;
-        this.width = width;
         this.playerOne = new Ship(width / 3, 20, 15, 40);
         this.playerTwo = new Ship(width / 3 * 2, 20, 15, 40);
         this.shipMover = new ShipMover(this.playerOne, this.playerTwo);
@@ -34,8 +32,12 @@ public class GameController implements Screen {
         this.objectRenderer = new ObjectRenderer();
         this.timer = new Timer(width / 2, 0, 2, 450);
         this.hud = new Hud(this.playerOne, this.playerTwo, (int) height);
-        this.detector = new CollisionDetector(this.obstacleController.getObstaclesLeft(),
-                this.obstacleController.getObstaclesRight(), this.playerOne, this.playerTwo);
+        this.detectorPlayerOne = new CollisionDetector(this.obstacleController.getObstaclesLeft(),
+                this.obstacleController.getObstaclesRight(), this.playerOne);
+        this.detectorPlayerTwo = new CollisionDetector(this.obstacleController.getObstaclesLeft(),
+                this.obstacleController.getObstaclesRight(), this.playerTwo);
+        this.controllerPlayerOne = new ShipController(this.detectorPlayerOne, this.playerOne, (int) height);
+        this.controllerPlayerTwo = new ShipController(this.detectorPlayerTwo, this.playerTwo, (int) height);
     }
 
     @Override
@@ -53,12 +55,10 @@ public class GameController implements Screen {
         this.timer.move(-0.1f, 0);
         this.hud.getStage().draw();
         this.hud.updatePoints();
-        if (detector.checkPlayerOne()) {
-            this.playerOne.setPosition(20);
-        }
-        if (detector.checkPlayerTwo()) {
-            this.playerTwo.setPosition(20);
-        }
+        this.detectorPlayerOne.check();
+        this.detectorPlayerTwo.check();
+        this.controllerPlayerOne.setPosition(20);
+        this.controllerPlayerTwo.setPosition(20);
     }
 
 

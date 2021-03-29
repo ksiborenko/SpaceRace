@@ -9,36 +9,23 @@ public class CollisionDetector {
 
     private Array<Obstacle> listOne;
     private Array<Obstacle> listTwo;
-    private Ship playerOne;
-    private Ship playerTwo;
+    private Ship ship;
 
-    public CollisionDetector(Array<Obstacle> listOne, Array<Obstacle> listTwo, Ship playerOne, Ship playerTwo) {
+    public CollisionDetector(Array<Obstacle> listOne, Array<Obstacle> listTwo, Ship ship) {
         this.listOne = listOne;
         this.listTwo = listTwo;
-        this.playerOne = playerOne;
-        this.playerTwo = playerTwo;
+        this.ship = ship;
     }
 
-    public boolean checkPlayerOne() {
+    public boolean check() {
         for (int obstacleIndex = 0; obstacleIndex < this.listOne.size; obstacleIndex++) {
-            if (check(this.listOne.get(obstacleIndex), this.playerOne) ||
-                    check(this.listTwo.get(obstacleIndex), this.playerOne)) {
+            if (check(this.listOne.get(obstacleIndex), this.ship) ||
+                    check(this.listTwo.get(obstacleIndex), this.ship)) {
                 return true;
             }
         }
         return false;
     }
-
-    public boolean checkPlayerTwo() {
-        for (int obstacleIndex = 0; obstacleIndex < this.listOne.size; obstacleIndex++) {
-            if (check(this.listOne.get(obstacleIndex), this.playerTwo) ||
-                    check(this.listTwo.get(obstacleIndex), this.playerTwo)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
 
     private boolean check(ShapeAbstract shapeOne, ShapeAbstract shapeTwo) {
         return shapeOne.getX() + shapeOne.getWidth() > shapeTwo.getX() &&
