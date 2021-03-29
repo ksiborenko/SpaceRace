@@ -6,6 +6,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.game.app.App;
 import com.game.app.objects.Ship;
 import com.game.app.objects.Timer;
+import com.game.app.utils.CollisionDetector;
 import com.game.app.utils.Hud;
 import com.game.app.utils.ObjectRenderer;
 import com.game.app.utils.ShipMover;
@@ -21,6 +22,7 @@ public class GameController implements Screen {
     private final ObjectRenderer objectRenderer;
     private final Timer timer;
     private final Hud hud;
+    private final CollisionDetector detector;
 
     public GameController(App app, float width, float height) {
         this.app = app;
@@ -32,6 +34,8 @@ public class GameController implements Screen {
         this.objectRenderer = new ObjectRenderer();
         this.timer = new Timer(width / 2, 0, 2, 450);
         this.hud = new Hud(this.playerOne, this.playerTwo, (int) height);
+        this.detector = new CollisionDetector(this.obstacleController.getObstaclesLeft(),
+                this.obstacleController.getObstaclesRight(), this.playerOne, this.playerTwo);
     }
 
     @Override
@@ -49,6 +53,12 @@ public class GameController implements Screen {
         this.timer.move(-0.1f, 0);
         this.hud.getStage().draw();
         this.hud.updatePoints();
+        if (detector.checkPlayerOne()) {
+            this.playerOne.setPosition(20);
+        }
+        if (detector.checkPlayerTwo()) {
+            this.playerTwo.setPosition(20);
+        }
     }
 
 

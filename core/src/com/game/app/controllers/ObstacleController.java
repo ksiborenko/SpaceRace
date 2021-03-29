@@ -52,8 +52,6 @@ public class ObstacleController {
             }
         }
         this.move(xSpeed);
-        System.out.println(this.obstaclesRight.size);
-        System.out.println(this.obstaclesLeft.size);
     }
 
     private void move(int xSpeed) {

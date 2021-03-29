@@ -19,6 +19,10 @@ public class ShapeAbstract {
         this.x += xSpeed;
     }
 
+    public void setPosition(float y) {
+        this.y = y;
+    }
+
     public float getX() {
         return x;
     }
