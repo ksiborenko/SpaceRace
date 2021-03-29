@@ -34,4 +34,12 @@ public class ScoreCounter {
     public int getPlayerTwoPoints() {
         return playerTwoPoints;
     }
+
+    public void setPlayerOnePoints(int playerOnePoints) {
+        this.playerOnePoints = playerOnePoints;
+    }
+
+    public void setPlayerTwoPoints(int playerTwoPoints) {
+        this.playerTwoPoints = playerTwoPoints;
+    }
 }

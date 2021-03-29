@@ -10,6 +10,7 @@ import com.game.app.utils.*;
 
 public class GameController implements Screen {
 
+    public static final int yStartingPosition = 20;
     private final App app;
     private final Ship playerOne;
     private final Ship playerTwo;
@@ -22,11 +23,12 @@ public class GameController implements Screen {
     private final CollisionDetector detectorPlayerTwo;
     private final ShipController controllerPlayerOne;
     private final ShipController controllerPlayerTwo;
+    private final TimerController timerController;
 
     public GameController(App app, float width, float height) {
         this.app = app;
-        this.playerOne = new Ship(width / 3, 20, 15, 40);
-        this.playerTwo = new Ship(width / 3 * 2, 20, 15, 40);
+        this.playerOne = new Ship(width / 3, yStartingPosition, 15, 40);
+        this.playerTwo = new Ship(width / 3 * 2, yStartingPosition, 15, 40);
         this.shipMover = new ShipMover(this.playerOne, this.playerTwo);
         this.obstacleController = new ObstacleController(width, height, 4, 1);
         this.objectRenderer = new ObjectRenderer();
@@ -38,6 +40,7 @@ public class GameController implements Screen {
                 this.obstacleController.getObstaclesRight(), this.playerTwo);
         this.controllerPlayerOne = new ShipController(this.detectorPlayerOne, this.playerOne, (int) height);
         this.controllerPlayerTwo = new ShipController(this.detectorPlayerTwo, this.playerTwo, (int) height);
+        this.timerController = new TimerController(this.timer);
     }
 
     @Override
@@ -57,8 +60,9 @@ public class GameController implements Screen {
         this.hud.updatePoints();
         this.detectorPlayerOne.check();
         this.detectorPlayerTwo.check();
-        this.controllerPlayerOne.setPosition(20);
-        this.controllerPlayerTwo.setPosition(20);
+        this.controllerPlayerOne.setPosition(yStartingPosition);
+        this.controllerPlayerTwo.setPosition(yStartingPosition);
+        this.timerController.timeCheck(this.hud.getScoreCounter());
     }
 
 

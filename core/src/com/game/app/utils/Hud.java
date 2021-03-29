@@ -38,4 +38,8 @@ public class Hud {
     public Stage getStage() {
         return stage;
     }
+
+    public ScoreCounter getScoreCounter() {
+        return scoreCounter;
+    }
 }

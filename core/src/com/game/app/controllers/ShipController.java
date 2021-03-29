@@ -1,6 +1,7 @@
-package com.game.app.utils;
+package com.game.app.controllers;
 
 import com.game.app.objects.Ship;
+import com.game.app.utils.CollisionDetector;
 
 public class ShipController {
 
@@ -15,7 +16,7 @@ public class ShipController {
     }
 
     public void setPosition(int yPosition) {
-        if (this.detector.check() || this.ship.getY() > this.height) {
+        if (this.detector.check() || this.ship.getY() > this.height|| this.ship.getY() < yPosition) {
             this.ship.setPosition(yPosition);
         }
     }
