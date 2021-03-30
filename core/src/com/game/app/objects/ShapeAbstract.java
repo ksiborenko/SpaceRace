@@ -4,8 +4,8 @@ public class ShapeAbstract {
 
     private float x;
     private float y;
-    private float width;
-    private float height;
+    private final float width;
+    private final float height;
 
     protected ShapeAbstract(float x, float y, float width, float height) {
         this.x = x;

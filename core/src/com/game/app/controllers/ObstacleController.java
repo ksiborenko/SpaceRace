@@ -15,6 +15,7 @@ public class ObstacleController {
     private final float obstacleHeight;
     private final int obstacleNumber;
     private final Random random;
+    private final int bottomGap;
 
 
     public ObstacleController(float screenWidth, float screenHeight, float obstacleWidth, float obstacleHeight) {
@@ -26,11 +27,12 @@ public class ObstacleController {
         this.obstaclesRight = new Array<>();
         this.obstaclesLeft = new Array<>();
         random = new Random();
+        this.bottomGap = 100;
         for (int obstacleIndex = 0; obstacleIndex < this.obstacleNumber; obstacleIndex++) {
             this.obstaclesRight.add(new Obstacle(random.nextInt((int) screenWidth) + screenWidth,
-                    random.nextInt((int) screenHeight - 100) + 100, obstacleWidth, obstacleHeight));
+                    random.nextInt((int) screenHeight - bottomGap) + bottomGap, obstacleWidth, obstacleHeight));
             this.obstaclesLeft.add(new Obstacle(random.nextInt((int) screenWidth) - screenWidth,
-                    random.nextInt((int) screenHeight - 100) + 100, obstacleWidth, obstacleHeight));
+                    random.nextInt((int) screenHeight - bottomGap) + bottomGap, obstacleWidth, obstacleHeight));
         }
 
     }
@@ -40,14 +42,14 @@ public class ObstacleController {
             if (obstaclesRight.get(obstacleIndex).getX() < 0) {
                 this.obstaclesRight.removeIndex(obstacleIndex);
                 this.obstaclesRight.add(new Obstacle(random.nextInt((int) screenWidth) + screenWidth,
-                        random.nextInt((int) screenHeight - 100) + 100, obstacleWidth, obstacleHeight));
+                        random.nextInt((int) screenHeight - this.bottomGap) + this.bottomGap, obstacleWidth, obstacleHeight));
             }
         }
         for (int obstacleIndex = 0; obstacleIndex < this.obstacleNumber; obstacleIndex++) {
             if (obstaclesLeft.get(obstacleIndex).getX() > this.screenWidth) {
                 this.obstaclesLeft.removeIndex(obstacleIndex);
                 this.obstaclesLeft.add(new Obstacle(random.nextInt((int) screenWidth) - screenWidth,
-                        random.nextInt((int) screenHeight - 100) + 100, obstacleWidth, obstacleHeight));
+                        random.nextInt((int) screenHeight - this.bottomGap) + this.bottomGap, obstacleWidth, obstacleHeight));
 
             }
         }

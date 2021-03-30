@@ -6,7 +6,10 @@ import com.badlogic.gdx.graphics.GL20;
 import com.game.app.App;
 import com.game.app.objects.Ship;
 import com.game.app.objects.Timer;
-import com.game.app.utils.*;
+import com.game.app.utils.CollisionDetector;
+import com.game.app.utils.Hud;
+import com.game.app.utils.ObjectRenderer;
+import com.game.app.utils.ShipMover;
 
 public class GameController implements Screen {
 
@@ -25,21 +28,23 @@ public class GameController implements Screen {
     private final ShipController controllerPlayerTwo;
     private final TimerController timerController;
 
-    public GameController(App app, float width, float height) {
+    public GameController(App app, float screenWidth, float screenHeight) {
         this.app = app;
-        this.playerOne = new Ship(width / 3, yStartingPosition, 15, 40);
-        this.playerTwo = new Ship(width / 3 * 2, yStartingPosition, 15, 40);
+        int shipWidth = 15;
+        int shipHeight = 40;
+        this.playerOne = new Ship(screenWidth / 3, yStartingPosition, shipWidth, shipHeight);
+        this.playerTwo = new Ship(screenWidth / 3 * 2, yStartingPosition, shipWidth, shipHeight);
         this.shipMover = new ShipMover(this.playerOne, this.playerTwo);
-        this.obstacleController = new ObstacleController(width, height, 4, 1);
+        this.obstacleController = new ObstacleController(screenWidth, screenHeight, 4, 1);
         this.objectRenderer = new ObjectRenderer();
-        this.timer = new Timer(width / 2, 0, 2, 450);
-        this.hud = new Hud(this.playerOne, this.playerTwo, (int) height);
+        this.timer = new Timer(screenWidth / 2, 0, 2, 450);
+        this.hud = new Hud(this.playerOne, this.playerTwo, (int) screenHeight);
         this.detectorPlayerOne = new CollisionDetector(this.obstacleController.getObstaclesLeft(),
                 this.obstacleController.getObstaclesRight(), this.playerOne);
         this.detectorPlayerTwo = new CollisionDetector(this.obstacleController.getObstaclesLeft(),
                 this.obstacleController.getObstaclesRight(), this.playerTwo);
-        this.controllerPlayerOne = new ShipController(this.detectorPlayerOne, this.playerOne, (int) height);
-        this.controllerPlayerTwo = new ShipController(this.detectorPlayerTwo, this.playerTwo, (int) height);
+        this.controllerPlayerOne = new ShipController(this.detectorPlayerOne, this.playerOne, (int) screenHeight);
+        this.controllerPlayerTwo = new ShipController(this.detectorPlayerTwo, this.playerTwo, (int) screenHeight);
         this.timerController = new TimerController(this.timer);
     }
 

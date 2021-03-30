@@ -11,10 +11,10 @@ import com.game.app.objects.Ship;
 
 public class Hud {
 
-    private Stage stage;
+    private final Stage stage;
     private final Label pointsOne;
     private final Label pointsTwo;
-    private ScoreCounter scoreCounter;
+    private final ScoreCounter scoreCounter;
 
     public Hud(Ship playerOne, Ship playerTwo, int height) {
         this.stage = new Stage();

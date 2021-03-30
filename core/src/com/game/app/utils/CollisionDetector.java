@@ -7,9 +7,9 @@ import com.game.app.objects.Ship;
 
 public class CollisionDetector {
 
-    private Array<Obstacle> listOne;
-    private Array<Obstacle> listTwo;
-    private Ship ship;
+    private final Array<Obstacle> listOne;
+    private final Array<Obstacle> listTwo;
+    private final Ship ship;
 
     public CollisionDetector(Array<Obstacle> listOne, Array<Obstacle> listTwo, Ship ship) {
         this.listOne = listOne;

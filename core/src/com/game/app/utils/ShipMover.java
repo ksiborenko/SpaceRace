@@ -15,17 +15,18 @@ public class ShipMover {
     }
 
     public void move() {
+        int shipSpeed = 2;
         if (Gdx.input.isKeyPressed(Input.Keys.W)) {
-            this.shipOne.move(2, 0);
+            this.shipOne.move(shipSpeed, 0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.S)) {
-            this.shipOne.move(-2, 0);
+            this.shipOne.move(-shipSpeed, 0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.UP)) {
-            this.shipTwo.move(2, 0);
+            this.shipTwo.move(shipSpeed, 0);
         }
         if (Gdx.input.isKeyPressed(Input.Keys.DOWN)) {
-            this.shipTwo.move(-2, 0);
+            this.shipTwo.move(-shipSpeed, 0);
         }
 
     }
